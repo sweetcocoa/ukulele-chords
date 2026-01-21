@@ -121,7 +121,7 @@ const CHORD_DATABASE = {
         quality: 'minor',
         variations: [
             { name: '기본', frets: [2, 0, 0, 0], description: '오픈 포지션' },
-            { name: '하이', frets: [2, 4, 3, 3], description: '3프렛 포지션' }
+            { name: '하이', frets: [2, 4, 5, 7], description: '5프렛 포지션' }
         ]
     },
     'A#m': { quality: 'minor', variations: [{ name: '기본', frets: [3, 1, 1, 1] }] },
@@ -170,18 +170,18 @@ const CHORD_DATABASE = {
     'Bm7': { quality: 'm7', variations: [{ name: '기본', frets: [2, 2, 2, 2] }] },
 
     // Diminished 코드
-    'Cdim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 2, 3, 2] }] },
-    'C#dim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 0, 1, 0] }] },
-    'Ddim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 1, 2, 1] }] },
-    'D#dim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 2, 0, 2] }] },
-    'Edim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 3, 1, 3] }] },
-    'Fdim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 0, 2, 0] }] },
-    'F#dim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 1, 0, 1] }] },
-    'Gdim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 2, 1, 2] }] },
-    'G#dim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 3, 2, 3] }] },
-    'Adim': { quality: 'dim', variations: [{ name: '기본', frets: [3, 1, 3, 1] }] },
-    'A#dim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 2, 1, 2] }] },
-    'Bdim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 0, 2, 0] }] },
+    'Cdim': { quality: 'dim', variations: [{ name: '기본', frets: [5, 3, 2, 3] }] },
+    'C#dim': { quality: 'dim', variations: [{ name: '기본', frets: [6, 4, 3, 4] }] },
+    'Ddim': { quality: 'dim', variations: [{ name: '기본', frets: [7, 5, 4, 5] }] },
+    'D#dim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 3, 2, 0] }] },
+    'Edim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 4, 0, 1] }] },
+    'Fdim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 5, 1, 2] }] },
+    'F#dim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 0, 2, 0] }] },
+    'Gdim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 1, 3, 1] }] },
+    'G#dim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 2, 4, 2] }] },
+    'Adim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 3, 5, 3] }] },
+    'A#dim': { quality: 'dim', variations: [{ name: '기본', frets: [3, 1, 0, 1] }] },
+    'Bdim': { quality: 'dim', variations: [{ name: '기본', frets: [4, 2, 1, 2] }] },
 
     // Augmented 코드
     'Caug': { quality: 'aug', variations: [{ name: '기본', frets: [1, 0, 0, 3] }] },
