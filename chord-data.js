@@ -37,122 +37,183 @@ function getChordNotes(root, quality) {
 
 // 우쿨렐레 코드 데이터베이스
 // [4번줄(G), 3번줄(C), 2번줄(E), 1번줄(A)] 순서
+// 각 코드는 variations 배열을 가지며, 여러 운지법을 지원
 const CHORD_DATABASE = {
     // C 코드
-    'C': { frets: [0, 0, 0, 3], quality: 'major' },
-    'C#': { frets: [1, 1, 1, 4], quality: 'major' },
-    'D': { frets: [2, 2, 2, 0], quality: 'major' },
-    'D#': { frets: [0, 3, 3, 1], quality: 'major' },
-    'E': { frets: [1, 4, 0, 2], quality: 'major' },
-    'F': { frets: [2, 0, 1, 0], quality: 'major' },
-    'F#': { frets: [3, 1, 2, 1], quality: 'major' },
-    'G': { frets: [0, 2, 3, 2], quality: 'major' },
-    'G#': { frets: [5, 3, 4, 3], quality: 'major' },
-    'A': { frets: [2, 1, 0, 0], quality: 'major' },
-    'A#': { frets: [3, 2, 1, 1], quality: 'major' },
-    'B': { frets: [4, 3, 2, 2], quality: 'major' },
+    'C': {
+        quality: 'major',
+        variations: [
+            { name: '기본', frets: [0, 0, 0, 3], description: '오픈 포지션' },
+            { name: '하이', frets: [5, 4, 3, 3], description: '5프렛 포지션' }
+        ]
+    },
+    'C#': { quality: 'major', variations: [{ name: '기본', frets: [1, 1, 1, 4] }] },
+    'D': {
+        quality: 'major',
+        variations: [
+            { name: '기본', frets: [2, 2, 2, 0], description: '오픈 포지션' },
+            { name: '하이', frets: [2, 2, 2, 5], description: '5프렛 포지션' }
+        ]
+    },
+    'D#': { quality: 'major', variations: [{ name: '기본', frets: [0, 3, 3, 1] }] },
+    'E': {
+        quality: 'major',
+        variations: [
+            { name: '기본', frets: [1, 4, 0, 2], description: '오픈 포지션' },
+            { name: '하이', frets: [4, 4, 4, 7], description: '7프렛 포지션' }
+        ]
+    },
+    'F': {
+        quality: 'major',
+        variations: [
+            { name: '기본', frets: [2, 0, 1, 0], description: '오픈 포지션' },
+            { name: '하이', frets: [5, 5, 5, 8], description: '8프렛 포지션' }
+        ]
+    },
+    'F#': { quality: 'major', variations: [{ name: '기본', frets: [3, 1, 2, 1] }] },
+    'G': {
+        quality: 'major',
+        variations: [
+            { name: '기본', frets: [0, 2, 3, 2], description: '오픈 포지션' },
+            { name: '하이', frets: [0, 2, 3, 5], description: '5프렛 포지션' }
+        ]
+    },
+    'G#': { quality: 'major', variations: [{ name: '기본', frets: [5, 3, 4, 3] }] },
+    'A': {
+        quality: 'major',
+        variations: [
+            { name: '기본', frets: [2, 1, 0, 0], description: '오픈 포지션' },
+            { name: '하이', frets: [2, 1, 0, 4], description: '4프렛 포지션' }
+        ]
+    },
+    'A#': { quality: 'major', variations: [{ name: '기본', frets: [3, 2, 1, 1] }] },
+    'B': { quality: 'major', variations: [{ name: '기본', frets: [4, 3, 2, 2] }] },
 
     // Minor 코드
-    'Cm': { frets: [0, 3, 3, 3], quality: 'minor' },
-    'C#m': { frets: [1, 1, 0, 4], quality: 'minor' },
-    'Dm': { frets: [2, 2, 1, 0], quality: 'minor' },
-    'D#m': { frets: [3, 3, 2, 1], quality: 'minor' },
-    'Em': { frets: [0, 4, 3, 2], quality: 'minor' },
-    'Fm': { frets: [1, 0, 1, 3], quality: 'minor' },
-    'F#m': { frets: [2, 1, 2, 0], quality: 'minor' },
-    'Gm': { frets: [0, 2, 3, 1], quality: 'minor' },
-    'G#m': { frets: [1, 3, 4, 2], quality: 'minor' },
-    'Am': { frets: [2, 0, 0, 0], quality: 'minor' },
-    'A#m': { frets: [3, 1, 1, 1], quality: 'minor' },
-    'Bm': { frets: [4, 2, 2, 2], quality: 'minor' },
+    'Cm': {
+        quality: 'minor',
+        variations: [
+            { name: '기본', frets: [0, 3, 3, 3], description: '오픈 포지션' },
+            { name: '하이', frets: [5, 3, 3, 3], description: '5프렛 포지션' }
+        ]
+    },
+    'C#m': { quality: 'minor', variations: [{ name: '기본', frets: [1, 1, 0, 4] }] },
+    'Dm': {
+        quality: 'minor',
+        variations: [
+            { name: '기본', frets: [2, 2, 1, 0], description: '오픈 포지션' },
+            { name: '하이', frets: [2, 2, 1, 5], description: '5프렛 포지션' }
+        ]
+    },
+    'D#m': { quality: 'minor', variations: [{ name: '기본', frets: [3, 3, 2, 1] }] },
+    'Em': {
+        quality: 'minor',
+        variations: [
+            { name: '기본', frets: [0, 4, 3, 2], description: '오픈 포지션' },
+            { name: '하이', frets: [0, 4, 3, 7], description: '7프렛 포지션' }
+        ]
+    },
+    'Fm': { quality: 'minor', variations: [{ name: '기본', frets: [1, 0, 1, 3] }] },
+    'F#m': { quality: 'minor', variations: [{ name: '기본', frets: [2, 1, 2, 0] }] },
+    'Gm': { quality: 'minor', variations: [{ name: '기본', frets: [0, 2, 3, 1] }] },
+    'G#m': { quality: 'minor', variations: [{ name: '기본', frets: [1, 3, 4, 2] }] },
+    'Am': {
+        quality: 'minor',
+        variations: [
+            { name: '기본', frets: [2, 0, 0, 0], description: '오픈 포지션' },
+            { name: '하이', frets: [2, 4, 3, 3], description: '3프렛 포지션' }
+        ]
+    },
+    'A#m': { quality: 'minor', variations: [{ name: '기본', frets: [3, 1, 1, 1] }] },
+    'Bm': { quality: 'minor', variations: [{ name: '기본', frets: [4, 2, 2, 2] }] },
 
     // 7th 코드
-    'C7': { frets: [0, 0, 0, 1], quality: '7' },
-    'C#7': { frets: [1, 1, 1, 2], quality: '7' },
-    'D7': { frets: [2, 2, 2, 3], quality: '7' },
-    'D#7': { frets: [3, 3, 3, 4], quality: '7' },
-    'E7': { frets: [1, 2, 0, 2], quality: '7' },
-    'F7': { frets: [2, 3, 1, 0], quality: '7' },
-    'F#7': { frets: [3, 4, 2, 1], quality: '7' },
-    'G7': { frets: [0, 2, 1, 2], quality: '7' },
-    'G#7': { frets: [1, 3, 2, 3], quality: '7' },
-    'A7': { frets: [0, 1, 0, 0], quality: '7' },
-    'A#7': { frets: [1, 2, 1, 1], quality: '7' },
-    'B7': { frets: [2, 3, 2, 2], quality: '7' },
+    'C7': { quality: '7', variations: [{ name: '기본', frets: [0, 0, 0, 1] }] },
+    'C#7': { quality: '7', variations: [{ name: '기본', frets: [1, 1, 1, 2] }] },
+    'D7': { quality: '7', variations: [{ name: '기본', frets: [2, 2, 2, 3] }] },
+    'D#7': { quality: '7', variations: [{ name: '기본', frets: [3, 3, 3, 4] }] },
+    'E7': { quality: '7', variations: [{ name: '기본', frets: [1, 2, 0, 2] }] },
+    'F7': { quality: '7', variations: [{ name: '기본', frets: [2, 3, 1, 0] }] },
+    'F#7': { quality: '7', variations: [{ name: '기본', frets: [3, 4, 2, 1] }] },
+    'G7': { quality: '7', variations: [{ name: '기본', frets: [0, 2, 1, 2] }] },
+    'G#7': { quality: '7', variations: [{ name: '기본', frets: [1, 3, 2, 3] }] },
+    'A7': { quality: '7', variations: [{ name: '기본', frets: [0, 1, 0, 0] }] },
+    'A#7': { quality: '7', variations: [{ name: '기본', frets: [1, 2, 1, 1] }] },
+    'B7': { quality: '7', variations: [{ name: '기본', frets: [2, 3, 2, 2] }] },
 
     // Major 7th 코드
-    'Cmaj7': { frets: [0, 0, 0, 2], quality: 'maj7' },
-    'C#maj7': { frets: [1, 1, 1, 3], quality: 'maj7' },
-    'Dmaj7': { frets: [2, 2, 2, 4], quality: 'maj7' },
-    'D#maj7': { frets: [3, 3, 3, 5], quality: 'maj7' },
-    'Emaj7': { frets: [1, 3, 0, 2], quality: 'maj7' },
-    'Fmaj7': { frets: [2, 4, 1, 3], quality: 'maj7' },
-    'F#maj7': { frets: [3, 5, 2, 4], quality: 'maj7' },
-    'Gmaj7': { frets: [0, 2, 2, 2], quality: 'maj7' },
-    'G#maj7': { frets: [1, 3, 3, 3], quality: 'maj7' },
-    'Amaj7': { frets: [1, 1, 0, 0], quality: 'maj7' },
-    'A#maj7': { frets: [2, 2, 1, 1], quality: 'maj7' },
-    'Bmaj7': { frets: [3, 3, 2, 2], quality: 'maj7' },
+    'Cmaj7': { quality: 'maj7', variations: [{ name: '기본', frets: [0, 0, 0, 2] }] },
+    'C#maj7': { quality: 'maj7', variations: [{ name: '기본', frets: [1, 1, 1, 3] }] },
+    'Dmaj7': { quality: 'maj7', variations: [{ name: '기본', frets: [2, 2, 2, 4] }] },
+    'D#maj7': { quality: 'maj7', variations: [{ name: '기본', frets: [3, 3, 3, 5] }] },
+    'Emaj7': { quality: 'maj7', variations: [{ name: '기본', frets: [1, 3, 0, 2] }] },
+    'Fmaj7': { quality: 'maj7', variations: [{ name: '기본', frets: [2, 4, 1, 3] }] },
+    'F#maj7': { quality: 'maj7', variations: [{ name: '기본', frets: [3, 5, 2, 4] }] },
+    'Gmaj7': { quality: 'maj7', variations: [{ name: '기본', frets: [0, 2, 2, 2] }] },
+    'G#maj7': { quality: 'maj7', variations: [{ name: '기본', frets: [1, 3, 3, 3] }] },
+    'Amaj7': { quality: 'maj7', variations: [{ name: '기본', frets: [1, 1, 0, 0] }] },
+    'A#maj7': { quality: 'maj7', variations: [{ name: '기본', frets: [2, 2, 1, 1] }] },
+    'Bmaj7': { quality: 'maj7', variations: [{ name: '기본', frets: [3, 3, 2, 2] }] },
 
     // Minor 7th 코드
-    'Cm7': { frets: [3, 3, 3, 3], quality: 'm7' },
-    'C#m7': { frets: [4, 4, 4, 4], quality: 'm7' },
-    'Dm7': { frets: [2, 2, 1, 3], quality: 'm7' },
-    'D#m7': { frets: [3, 3, 2, 4], quality: 'm7' },
-    'Em7': { frets: [0, 2, 0, 2], quality: 'm7' },
-    'Fm7': { frets: [1, 3, 1, 3], quality: 'm7' },
-    'F#m7': { frets: [2, 4, 2, 4], quality: 'm7' },
-    'Gm7': { frets: [0, 2, 1, 1], quality: 'm7' },
-    'G#m7': { frets: [1, 3, 2, 2], quality: 'm7' },
-    'Am7': { frets: [0, 0, 0, 0], quality: 'm7' },
-    'A#m7': { frets: [1, 1, 1, 1], quality: 'm7' },
-    'Bm7': { frets: [2, 2, 2, 2], quality: 'm7' },
+    'Cm7': { quality: 'm7', variations: [{ name: '기본', frets: [3, 3, 3, 3] }] },
+    'C#m7': { quality: 'm7', variations: [{ name: '기본', frets: [4, 4, 4, 4] }] },
+    'Dm7': { quality: 'm7', variations: [{ name: '기본', frets: [2, 2, 1, 3] }] },
+    'D#m7': { quality: 'm7', variations: [{ name: '기본', frets: [3, 3, 2, 4] }] },
+    'Em7': { quality: 'm7', variations: [{ name: '기본', frets: [0, 2, 0, 2] }] },
+    'Fm7': { quality: 'm7', variations: [{ name: '기본', frets: [1, 3, 1, 3] }] },
+    'F#m7': { quality: 'm7', variations: [{ name: '기본', frets: [2, 4, 2, 4] }] },
+    'Gm7': { quality: 'm7', variations: [{ name: '기본', frets: [0, 2, 1, 1] }] },
+    'G#m7': { quality: 'm7', variations: [{ name: '기본', frets: [1, 3, 2, 2] }] },
+    'Am7': { quality: 'm7', variations: [{ name: '기본', frets: [0, 0, 0, 0] }] },
+    'A#m7': { quality: 'm7', variations: [{ name: '기본', frets: [1, 1, 1, 1] }] },
+    'Bm7': { quality: 'm7', variations: [{ name: '기본', frets: [2, 2, 2, 2] }] },
 
     // Diminished 코드
-    'Cdim': { frets: [0, 2, 3, 2], quality: 'dim' },
-    'C#dim': { frets: [1, 0, 1, 0], quality: 'dim' },
-    'Ddim': { frets: [2, 1, 2, 1], quality: 'dim' },
-    'D#dim': { frets: [0, 2, 0, 2], quality: 'dim' },
-    'Edim': { frets: [1, 3, 1, 3], quality: 'dim' },
-    'Fdim': { frets: [2, 0, 2, 0], quality: 'dim' },
-    'F#dim': { frets: [0, 1, 0, 1], quality: 'dim' },
-    'Gdim': { frets: [1, 2, 1, 2], quality: 'dim' },
-    'G#dim': { frets: [2, 3, 2, 3], quality: 'dim' },
-    'Adim': { frets: [3, 1, 3, 1], quality: 'dim' },
-    'A#dim': { frets: [1, 2, 1, 2], quality: 'dim' },
-    'Bdim': { frets: [2, 0, 2, 0], quality: 'dim' },
+    'Cdim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 2, 3, 2] }] },
+    'C#dim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 0, 1, 0] }] },
+    'Ddim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 1, 2, 1] }] },
+    'D#dim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 2, 0, 2] }] },
+    'Edim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 3, 1, 3] }] },
+    'Fdim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 0, 2, 0] }] },
+    'F#dim': { quality: 'dim', variations: [{ name: '기본', frets: [0, 1, 0, 1] }] },
+    'Gdim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 2, 1, 2] }] },
+    'G#dim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 3, 2, 3] }] },
+    'Adim': { quality: 'dim', variations: [{ name: '기본', frets: [3, 1, 3, 1] }] },
+    'A#dim': { quality: 'dim', variations: [{ name: '기본', frets: [1, 2, 1, 2] }] },
+    'Bdim': { quality: 'dim', variations: [{ name: '기본', frets: [2, 0, 2, 0] }] },
 
     // Augmented 코드
-    'Caug': { frets: [1, 0, 0, 3], quality: 'aug' },
-    'C#aug': { frets: [2, 1, 1, 4], quality: 'aug' },
-    'Daug': { frets: [3, 2, 2, 5], quality: 'aug' },
-    'D#aug': { frets: [0, 3, 3, 2], quality: 'aug' },
-    'Eaug': { frets: [1, 0, 0, 3], quality: 'aug' },
-    'Faug': { frets: [2, 1, 1, 4], quality: 'aug' },
-    'F#aug': { frets: [3, 2, 2, 5], quality: 'aug' },
-    'Gaug': { frets: [0, 3, 3, 2], quality: 'aug' },
-    'G#aug': { frets: [1, 0, 0, 3], quality: 'aug' },
-    'Aaug': { frets: [2, 1, 1, 0], quality: 'aug' },
-    'A#aug': { frets: [3, 2, 2, 1], quality: 'aug' },
-    'Baug': { frets: [0, 3, 3, 2], quality: 'aug' },
+    'Caug': { quality: 'aug', variations: [{ name: '기본', frets: [1, 0, 0, 3] }] },
+    'C#aug': { quality: 'aug', variations: [{ name: '기본', frets: [2, 1, 1, 4] }] },
+    'Daug': { quality: 'aug', variations: [{ name: '기본', frets: [3, 2, 2, 5] }] },
+    'D#aug': { quality: 'aug', variations: [{ name: '기본', frets: [0, 3, 3, 2] }] },
+    'Eaug': { quality: 'aug', variations: [{ name: '기본', frets: [1, 0, 0, 3] }] },
+    'Faug': { quality: 'aug', variations: [{ name: '기본', frets: [2, 1, 1, 4] }] },
+    'F#aug': { quality: 'aug', variations: [{ name: '기본', frets: [3, 2, 2, 5] }] },
+    'Gaug': { quality: 'aug', variations: [{ name: '기본', frets: [0, 3, 3, 2] }] },
+    'G#aug': { quality: 'aug', variations: [{ name: '기본', frets: [1, 0, 0, 3] }] },
+    'Aaug': { quality: 'aug', variations: [{ name: '기본', frets: [2, 1, 1, 0] }] },
+    'A#aug': { quality: 'aug', variations: [{ name: '기본', frets: [3, 2, 2, 1] }] },
+    'Baug': { quality: 'aug', variations: [{ name: '기본', frets: [0, 3, 3, 2] }] },
 
     // Sus4 코드
-    'Csus4': { frets: [0, 0, 1, 3], quality: 'sus4' },
-    'C#sus4': { frets: [1, 1, 2, 4], quality: 'sus4' },
-    'Dsus4': { frets: [2, 2, 3, 0], quality: 'sus4' },
-    'D#sus4': { frets: [3, 3, 4, 1], quality: 'sus4' },
-    'Esus4': { frets: [4, 4, 0, 0], quality: 'sus4' },
-    'Fsus4': { frets: [3, 0, 1, 3], quality: 'sus4' },
-    'F#sus4': { frets: [4, 1, 2, 2], quality: 'sus4' },
-    'Gsus4': { frets: [0, 2, 3, 3], quality: 'sus4' },
-    'G#sus4': { frets: [1, 3, 4, 4], quality: 'sus4' },
-    'Asus4': { frets: [2, 2, 0, 0], quality: 'sus4' },
-    'A#sus4': { frets: [3, 3, 1, 1], quality: 'sus4' },
-    'Bsus4': { frets: [4, 4, 2, 2], quality: 'sus4' }
+    'Csus4': { quality: 'sus4', variations: [{ name: '기본', frets: [0, 0, 1, 3] }] },
+    'C#sus4': { quality: 'sus4', variations: [{ name: '기본', frets: [1, 1, 2, 4] }] },
+    'Dsus4': { quality: 'sus4', variations: [{ name: '기본', frets: [2, 2, 3, 0] }] },
+    'D#sus4': { quality: 'sus4', variations: [{ name: '기본', frets: [3, 3, 4, 1] }] },
+    'Esus4': { quality: 'sus4', variations: [{ name: '기본', frets: [4, 4, 0, 0] }] },
+    'Fsus4': { quality: 'sus4', variations: [{ name: '기본', frets: [3, 0, 1, 3] }] },
+    'F#sus4': { quality: 'sus4', variations: [{ name: '기본', frets: [4, 1, 2, 2] }] },
+    'Gsus4': { quality: 'sus4', variations: [{ name: '기본', frets: [0, 2, 3, 3] }] },
+    'G#sus4': { quality: 'sus4', variations: [{ name: '기본', frets: [1, 3, 4, 4] }] },
+    'Asus4': { quality: 'sus4', variations: [{ name: '기본', frets: [2, 2, 0, 0] }] },
+    'A#sus4': { quality: 'sus4', variations: [{ name: '기본', frets: [3, 3, 1, 1] }] },
+    'Bsus4': { quality: 'sus4', variations: [{ name: '기본', frets: [4, 4, 2, 2] }] }
 };
 
 // 코드 정보 가져오기
-function getChordInfo(root, quality) {
+function getChordInfo(root, quality, variationIndex = 0) {
     const qualitySuffix = quality === 'major' ? '' : quality === 'minor' ? 'm' : quality;
     const chordName = root + qualitySuffix;
 
@@ -161,8 +222,11 @@ function getChordInfo(root, quality) {
         return null;
     }
 
+    // variations 배열에서 선택된 variation 가져오기
+    const variation = chordData.variations[variationIndex] || chordData.variations[0];
+
     // 실제 연주되는 음 계산
-    const playedNotes = chordData.frets.map((fret, index) => {
+    const playedNotes = variation.frets.map((fret, index) => {
         return getNoteAtFret(UKULELE_TUNING[index], fret);
     });
 
@@ -177,11 +241,15 @@ function getChordInfo(root, quality) {
 
     return {
         name: chordName,
-        frets: chordData.frets,
+        frets: variation.frets,
         playedNotes: uniquePlayedNotes,
         theoreticalNotes: theoreticalNotes,
         missingNotes: missingNotes,
-        isComplete: missingNotes.length === 0
+        isComplete: missingNotes.length === 0,
+        variationName: variation.name,
+        variationDescription: variation.description || '',
+        totalVariations: chordData.variations.length,
+        currentVariationIndex: variationIndex
     };
 }
 
