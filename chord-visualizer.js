@@ -25,7 +25,7 @@ class ChordVisualizer {
 
         // 코드 이름
         const title = this.createText(this.width / 2, 15, chordInfo.name, {
-            fontSize: '18',
+            fontSize: '22',
             fontWeight: 'bold',
             textAnchor: 'middle'
         });
@@ -55,6 +55,20 @@ class ChordVisualizer {
                 1
             );
             svg.appendChild(line);
+
+            // 프렛 번호 표시 (왼쪽)
+            const fretNumber = this.createText(
+                this.padding - 12,
+                y - this.fretSpacing / 2,
+                i.toString(),
+                {
+                    fontSize: '11',
+                    fill: '#999',
+                    textAnchor: 'middle',
+                    dominantBaseline: 'middle'
+                }
+            );
+            svg.appendChild(fretNumber);
         }
 
         // 줄 그리기 (4번줄(G)부터 1번줄(A)까지, 왼쪽에서 오른쪽)
@@ -86,7 +100,7 @@ class ChordVisualizer {
 
             if (fret === 0) {
                 // 오픈 스트링 (O 표시)
-                const openCircle = this.createCircle(x, nutY - 10, 6, 'none', 'black', 2);
+                const openCircle = this.createCircle(x, nutY - 10, 7, 'white', 'black', 2.5);
                 svg.appendChild(openCircle);
             } else {
                 // 프렛에 손가락 위치

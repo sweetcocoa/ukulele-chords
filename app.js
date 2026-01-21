@@ -126,7 +126,7 @@ class UkuleleChordApp {
         `;
 
         const miniDiagram = document.createElement('div');
-        miniDiagram.style.transform = 'scale(0.8)';
+        miniDiagram.style.transform = 'scale(0.9)';
         miniDiagram.style.transformOrigin = 'right center';
         const svg = this.visualizer.createDiagram(chordInfo);
         miniDiagram.appendChild(svg);
@@ -248,4 +248,36 @@ class UkuleleChordApp {
 // 앱 초기화
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new UkuleleChordApp();
+
+    // 자동 데모 모드 (스크린샷용)
+    const urlParams = new URLSearchParams(window.location.search);
+    const demo = urlParams.get('demo');
+
+    if (demo === '1') {
+        // Demo 1: C Major 선택
+        setTimeout(() => {
+            document.querySelector('button[data-root="C"]').click();
+        }, 500);
+        setTimeout(() => {
+            document.querySelector('button[data-quality="major"]').click();
+        }, 800);
+    } else if (demo === '2') {
+        // Demo 2: 여러 코드 추가
+        const addChord = (root, quality, delay) => {
+            setTimeout(() => {
+                document.querySelector(`button[data-root="${root}"]`).click();
+            }, delay);
+            setTimeout(() => {
+                document.querySelector(`button[data-quality="${quality}"]`).click();
+            }, delay + 200);
+            setTimeout(() => {
+                document.getElementById('addChordBtn').click();
+            }, delay + 400);
+        };
+
+        addChord('C', 'major', 500);
+        addChord('G', 'major', 1200);
+        addChord('A', 'minor', 1900);
+        addChord('F', 'major', 2600);
+    }
 });

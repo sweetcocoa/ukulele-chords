@@ -89,7 +89,7 @@ body {
 .button-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
 }
 
 .btn-chord {
