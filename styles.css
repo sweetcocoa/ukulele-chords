@@ -386,3 +386,19 @@ body {
         transform: scale(0.98);
     }
 }
+
+/* 스크롤 부드럽게 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 선택 방지 (터치 시 텍스트 선택 방지) */
+.btn-chord,
+.btn-add,
+.btn-primary,
+.btn-secondary,
+.btn-icon {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
