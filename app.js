@@ -4,6 +4,7 @@ class UkuleleChordApp {
     constructor() {
         this.selectedRoot = null;
         this.selectedQuality = null;
+        this.selectedVariationIndex = 0;
         this.chordSequence = [];
         this.visualizer = new ChordVisualizer();
 
@@ -16,6 +17,8 @@ class UkuleleChordApp {
         this.qualityButtons = document.getElementById('qualityButtons');
         this.addChordBtn = document.getElementById('addChordBtn');
         this.selectedChordPreview = document.getElementById('selectedChordPreview');
+        this.variationSelector = document.getElementById('variationSelector');
+        this.variationButtons = document.getElementById('variationButtons');
         this.sequenceContainer = document.getElementById('sequenceContainer');
         this.clearAllBtn = document.getElementById('clearAllBtn');
         this.exportBtn = document.getElementById('exportBtn');
@@ -76,6 +79,9 @@ class UkuleleChordApp {
         button.classList.add('active');
         this.selectedRoot = button.dataset.root;
 
+        // 새로운 코드 선택 시 variation 인덱스 리셋
+        this.selectedVariationIndex = 0;
+
         this.updatePreview();
         this.updateAddButton();
     }
@@ -90,6 +96,9 @@ class UkuleleChordApp {
         button.classList.add('active');
         this.selectedQuality = button.dataset.quality;
 
+        // 새로운 코드 선택 시 variation 인덱스 리셋
+        this.selectedVariationIndex = 0;
+
         this.updatePreview();
         this.updateAddButton();
     }
@@ -101,13 +110,15 @@ class UkuleleChordApp {
     updatePreview() {
         if (!this.selectedRoot || !this.selectedQuality) {
             this.selectedChordPreview.innerHTML = '<p class="no-selection">코드를 선택하세요</p>';
+            this.variationSelector.style.display = 'none';
             return;
         }
 
-        const chordInfo = getChordInfo(this.selectedRoot, this.selectedQuality);
+        const chordInfo = getChordInfo(this.selectedRoot, this.selectedQuality, this.selectedVariationIndex);
 
         if (!chordInfo) {
             this.selectedChordPreview.innerHTML = '<p class="no-selection" style="color: #dc2626;">해당 코드를 찾을 수 없습니다</p>';
+            this.variationSelector.style.display = 'none';
             return;
         }
 
@@ -136,12 +147,49 @@ class UkuleleChordApp {
 
         this.selectedChordPreview.innerHTML = '';
         this.selectedChordPreview.appendChild(preview);
+
+        // 운지법 선택 UI 업데이트
+        this.updateVariationSelector(chordInfo);
+    }
+
+    updateVariationSelector(chordInfo) {
+        // 여러 운지법이 있는 경우에만 표시
+        if (chordInfo.totalVariations > 1) {
+            this.variationSelector.style.display = 'block';
+            this.variationButtons.innerHTML = '';
+
+            for (let i = 0; i < chordInfo.totalVariations; i++) {
+                const btn = document.createElement('button');
+                btn.classList.add('btn-variation');
+                if (i === this.selectedVariationIndex) {
+                    btn.classList.add('active');
+                }
+
+                // 각 variation의 정보를 가져와서 이름 표시
+                const varInfo = getChordInfo(this.selectedRoot, this.selectedQuality, i);
+                btn.textContent = varInfo.variationName + (varInfo.variationDescription ? ` (${varInfo.variationDescription})` : '');
+                btn.dataset.index = i;
+
+                btn.addEventListener('click', () => {
+                    this.selectVariation(i);
+                });
+
+                this.variationButtons.appendChild(btn);
+            }
+        } else {
+            this.variationSelector.style.display = 'none';
+        }
+    }
+
+    selectVariation(index) {
+        this.selectedVariationIndex = index;
+        this.updatePreview();
     }
 
     addChord() {
         if (!this.selectedRoot || !this.selectedQuality) return;
 
-        const chordInfo = getChordInfo(this.selectedRoot, this.selectedQuality);
+        const chordInfo = getChordInfo(this.selectedRoot, this.selectedQuality, this.selectedVariationIndex);
 
         if (!chordInfo) {
             alert('해당 코드를 찾을 수 없습니다.');
@@ -158,7 +206,7 @@ class UkuleleChordApp {
             return;
         }
 
-        const chordInfo = getChordInfo(this.selectedRoot, this.selectedQuality);
+        const chordInfo = getChordInfo(this.selectedRoot, this.selectedQuality, this.selectedVariationIndex);
 
         if (!chordInfo) {
             alert('해당 코드를 찾을 수 없습니다.');
