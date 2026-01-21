@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="우쿨렐레 코드를 쉽게 찾고 시각화하는 도구">
+    <meta name="theme-color" content="#ffffff">
+    <title>우쿨렐레 코드 시각화</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎸 우쿨렐레 코드</h1>
+            <p class="subtitle">코드를 선택하고 운지법을 확인하세요</p>
+        </header>
+
+        <main class="main-content">
+            <!-- 코드 선택 UI -->
+            <section class="chord-selector">
+                <h2>코드 선택</h2>
+                <div class="chord-controls">
+                    <div class="root-selector">
+                        <label>Root:</label>
+                        <div class="button-group" id="rootButtons">
+                            <button class="btn-chord" data-root="C">C</button>
+                            <button class="btn-chord" data-root="C#">C#</button>
+                            <button class="btn-chord" data-root="D">D</button>
+                            <button class="btn-chord" data-root="D#">D#</button>
+                            <button class="btn-chord" data-root="E">E</button>
+                            <button class="btn-chord" data-root="F">F</button>
+                            <button class="btn-chord" data-root="F#">F#</button>
+                            <button class="btn-chord" data-root="G">G</button>
+                            <button class="btn-chord" data-root="G#">G#</button>
+                            <button class="btn-chord" data-root="A">A</button>
+                            <button class="btn-chord" data-root="A#">A#</button>
+                            <button class="btn-chord" data-root="B">B</button>
+                        </div>
+                    </div>
+
+                    <div class="quality-selector">
+                        <label>Type:</label>
+                        <div class="button-group" id="qualityButtons">
+                            <button class="btn-chord" data-quality="major">Major</button>
+                            <button class="btn-chord" data-quality="minor">Minor</button>
+                            <button class="btn-chord" data-quality="7">7th</button>
+                            <button class="btn-chord" data-quality="maj7">Maj7</button>
+                            <button class="btn-chord" data-quality="m7">m7</button>
+                            <button class="btn-chord" data-quality="dim">dim</button>
+                            <button class="btn-chord" data-quality="aug">aug</button>
+                            <button class="btn-chord" data-quality="sus4">sus4</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-add" id="addChordBtn">추가</button>
+                </div>
+
+                <div class="selected-chord-preview" id="selectedChordPreview">
+                    <p class="no-selection">코드를 선택하세요</p>
+                </div>
+            </section>
+
+            <!-- 코드 시퀀스 -->
+            <section class="chord-sequence">
+                <div class="sequence-header">
+                    <h2>코드 시퀀스</h2>
+                    <div class="sequence-actions">
+                        <button class="btn-secondary" id="clearAllBtn">전체 삭제</button>
+                        <button class="btn-primary" id="exportBtn">이미지로 내보내기</button>
+                    </div>
+                </div>
+                <div class="sequence-container" id="sequenceContainer">
+                    <div class="empty-state">
+                        <p>아직 추가된 코드가 없습니다</p>
+                        <p class="hint">위에서 코드를 선택하고 추가해보세요</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="chord-data.js"></script>
+    <script src="chord-visualizer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

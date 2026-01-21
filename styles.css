@@ -1,0 +1,388 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary-color: #64748b;
+    --background: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --radius: 8px;
+    --spacing: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 24px 0;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Chord Selector */
+.chord-selector {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+}
+
+.chord-selector h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.chord-controls {
+    margin-bottom: 16px;
+}
+
+.root-selector,
+.quality-selector {
+    margin-bottom: 16px;
+}
+
+.root-selector label,
+.quality-selector label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn-chord {
+    padding: 10px 16px;
+    border: 2px solid var(--border);
+    background: var(--background);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-primary);
+}
+
+.btn-chord:hover {
+    border-color: var(--primary-color);
+    background: #eff6ff;
+}
+
+.btn-chord.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.btn-add {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-add:hover {
+    background: var(--primary-hover);
+}
+
+.btn-add:disabled {
+    background: var(--secondary-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.selected-chord-preview {
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--background);
+    border-radius: var(--radius);
+    border: 2px dashed var(--border);
+    min-height: 60px;
+}
+
+.no-selection {
+    color: var(--text-secondary);
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Chord Sequence */
+.chord-sequence {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.sequence-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sequence-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sequence-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: var(--background);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: var(--surface);
+}
+
+.sequence-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-state p {
+    margin-bottom: 8px;
+}
+
+.hint {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Chord Card */
+.chord-card {
+    background: var(--background);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.chord-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.chord-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.chord-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background 0.2s;
+    color: var(--text-secondary);
+}
+
+.btn-icon:hover {
+    background: var(--surface);
+}
+
+.btn-icon.delete:hover {
+    background: #fee;
+    color: #dc2626;
+}
+
+/* Chord Diagram */
+.chord-diagram {
+    margin: 16px 0;
+}
+
+.diagram-container {
+    display: inline-block;
+}
+
+.chord-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.note-badge {
+    padding: 4px 12px;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.chord-warning {
+    background: #fef3c7;
+    border: 1px solid #fbbf24;
+    border-radius: var(--radius);
+    padding: 12px;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #92400e;
+}
+
+.chord-warning strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.missing-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.missing-note {
+    padding: 2px 8px;
+    background: #fee;
+    color: #991b1b;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .container {
+        padding: 12px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .chord-selector,
+    .chord-sequence {
+        padding: 16px;
+    }
+
+    .sequence-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sequence-actions {
+        width: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        flex: 1;
+    }
+
+    .button-group {
+        gap: 6px;
+    }
+
+    .btn-chord {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* 터치 최적화 */
+@media (hover: none) {
+    .btn-chord:active {
+        transform: scale(0.95);
+    }
+
+    .btn-add:active,
+    .btn-primary:active,
+    .btn-secondary:active {
+        transform: scale(0.98);
+    }
+}
